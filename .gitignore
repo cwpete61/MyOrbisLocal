@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+.next/
+.turbo/
+
+# Env files (commit env-example.txt only)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Prisma migration shadow
+prisma/migrations/dev.db*
+
+# Local snapshots and backups
+snapshots/
+backups/
+*.dump
+*.sql.gz
+
+# Marketing screenshots
+images/
+
+# Unrelated sibling project clones — kept on disk but not in this repo
+goose/
+playwright/
+impeccable/
+skills/
+
+# Uploads
+uploads/
+
+# Scratch / temp
+*.tmp
+.scratch/

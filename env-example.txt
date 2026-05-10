@@ -1,0 +1,51 @@
+# Core
+NODE_ENV=development
+APP_NAME=APP_NAME
+APP_BASE_URL=http://localhost:3000
+API_BASE_URL=http://localhost:4000
+
+# Database
+DATABASE_URL=postgresql://app:app@postgres:5432/app?schema=public
+
+# Redis
+REDIS_URL=redis://redis:6379
+
+# Auth — must be at least 32 characters
+AUTH_SECRET=replace-with-long-random-secret-at-least-32-chars
+SESSION_COOKIE_NAME=template_session
+
+# Google OAuth (optional — wire via Admin → System Settings or set here)
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_OAUTH_REDIRECT_URI=http://localhost:4000/api/integrations/google/callback
+
+# Stripe (optional — wire via Admin → System Settings or set here)
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRICE_STARTER_MONTHLY=
+STRIPE_PRICE_PRO_MONTHLY=
+STRIPE_PRICE_ENTERPRISE_MONTHLY=
+
+# OpenAI (used by i18n:fill script and any product LLM features you add)
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4o-mini
+
+# Transactional email provider
+TRANSACTIONAL_EMAIL_PROVIDER=
+TRANSACTIONAL_EMAIL_API_KEY=
+
+# Web push (generate VAPID keys: `npx web-push generate-vapid-keys`)
+VAPID_PUBLIC_KEY=
+VAPID_PRIVATE_KEY=
+VAPID_SUBJECT=mailto:admin@example.com
+
+# Feature flags
+ENABLE_AFFILIATES=true
+
+# Logging
+LOG_LEVEL=debug
+
+# Seed admin (used by `pnpm db:seed`)
+SEED_ADMIN_EMAIL=admin@example.com
+SEED_ADMIN_PASSWORD=changeme123

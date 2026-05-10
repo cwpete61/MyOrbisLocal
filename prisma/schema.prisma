@@ -1,0 +1,604 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+enum UserStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+  DISABLED
+}
+
+enum TenantStatus {
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  SUSPENDED
+  CANCELED
+  ARCHIVED
+}
+
+enum PlanInterval {
+  MONTHLY
+  YEARLY
+  ONE_TIME
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+}
+
+enum IntegrationProvider {
+  GOOGLE
+  STRIPE
+  TRANSACTIONAL_EMAIL
+}
+
+enum IntegrationStatus {
+  NOT_CONNECTED
+  CONNECTED
+  ERROR
+  RECONNECT_REQUIRED
+  DISABLED
+}
+
+enum AffiliateStatus {
+  PENDING
+  ACTIVE
+  PAUSED
+  DISABLED
+}
+
+enum CommissionStatus {
+  PENDING
+  APPROVED
+  HOLD
+  PAID
+  REVERSED
+}
+
+enum AuditActorType {
+  USER
+  ADMIN
+  SYSTEM
+  WORKFLOW
+}
+
+enum SecretOwnerType {
+  PLATFORM
+  TENANT
+  USER
+  INTEGRATION
+}
+
+enum EntitlementValueType {
+  BOOLEAN
+  INTEGER
+  STRING
+}
+
+enum EntitlementSourceType {
+  PLAN
+  ADMIN_OVERRIDE
+  PROMOTION
+  MANUAL
+}
+
+enum RotationStatus {
+  VALID
+  NEEDS_ROTATION
+  REVOKED
+  UNKNOWN
+}
+
+// ============================================================================
+// Identity & multi-tenant
+// ============================================================================
+
+model User {
+  id                    String                 @id @default(uuid())
+  email                 String                 @unique
+  username              String?                @unique
+  /// Nullable: Google-only sign-in users have no local password. Existing
+  /// password users keep their hash. A user can have BOTH (if they signed up
+  /// with password then linked Google in profile).
+  passwordHash          String?
+  /// Stable Google identity (Google's `sub` claim). Lets us re-find a user
+  /// even if their Google email changes.
+  googleId              String?                @unique
+  firstName             String?
+  lastName              String?
+  preferredLocale       String                 @default("en")
+  status                UserStatus             @default(ACTIVE)
+  lastLoginAt           DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  tenantMemberships     TenantMember[]
+  auditLogs             AuditLog[]             @relation("AuditActorUser")
+  affiliateAccount      AffiliateAccount?
+  startedImpersonations ImpersonationSession[] @relation("ImpersonationStartedBy")
+  refreshTokens         RefreshToken[]
+  pushSubscriptions     PushSubscription[]
+  passwordResetTokens   PasswordResetToken[]
+}
+
+model Tenant {
+  id                     String                  @id @default(uuid())
+  slug                   String                  @unique
+  displayName            String
+  legalName              String?
+  status                 TenantStatus            @default(TRIAL)
+  timezone               String                  @default("America/New_York")
+  registrationEmail      String
+  publicEmail            String?
+  publicPhone            String?
+  website                String?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  deletedAt              DateTime?
+  referredByCode         String?
+  attributedAt           DateTime?
+  members                TenantMember[]
+  businessProfile        BusinessProfile?
+  integrationConnections IntegrationConnection[]
+  stripeCustomerRef      StripeCustomerRef?
+  subscriptions          Subscription[]
+  pushSubscriptions      PushSubscription[]
+  tenantEntitlements     TenantEntitlement[]
+  affiliateConversions   AffiliateConversion[]
+  affiliateCommissions   AffiliateCommission[]
+  auditLogs              AuditLog[]
+  impersonationSessions  ImpersonationSession[]
+  notifications          Notification[]
+}
+
+model TenantMember {
+  id               String         @id @default(uuid())
+  tenantId         String
+  userId           String
+  roleDefinitionId String
+  isOwner          Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  tenant           Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roleDefinition   RoleDefinition @relation(fields: [roleDefinitionId], references: [id])
+
+  @@unique([tenantId, userId])
+}
+
+model RoleDefinition {
+  id             String         @id @default(uuid())
+  key            String         @unique
+  name           String
+  description    String?
+  isPlatformRole Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  tenantMembers  TenantMember[]
+}
+
+model BusinessProfile {
+  id                        String   @id @default(uuid())
+  tenantId                  String   @unique
+  brandName                 String
+  logoUrl                   String?
+  addressLine1              String?
+  addressLine2              String?
+  city                      String?
+  region                    String?
+  postalCode                String?
+  country                   String?
+  fallbackNotificationEmail String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  tenant                    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================================
+// Plans, entitlements, billing
+// ============================================================================
+
+model Plan {
+  id                     String            @id @default(uuid())
+  code                   String            @unique
+  name                   String
+  description            String?
+  interval               PlanInterval
+  priceCents             Int               @default(0)
+  stripePriceId          String?
+  /// Optional second Stripe price ID for plans that bundle a one-time charge
+  /// PLUS a recurring add-on (e.g. lifetime + monthly token coverage).
+  stripeRecurringPriceId String?
+  /// Public Stripe Payment Link URL (https://buy.stripe.com/...).
+  stripeBuyLinkUrl       String?
+  isActive               Boolean           @default(true)
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  entitlements           PlanEntitlement[]
+  subscriptions          Subscription[]
+}
+
+model PlanEntitlement {
+  id           String               @id @default(uuid())
+  planId       String
+  key          String
+  valueType    EntitlementValueType
+  booleanValue Boolean?
+  integerValue Int?
+  stringValue  String?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  plan         Plan                 @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, key])
+}
+
+model TenantEntitlement {
+  id           String                @id @default(uuid())
+  tenantId     String
+  key          String
+  valueType    EntitlementValueType
+  booleanValue Boolean?
+  integerValue Int?
+  stringValue  String?
+  sourceType   EntitlementSourceType
+  sourceRef    String?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  tenant       Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, key])
+}
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  tenantId             String
+  planId               String
+  stripeSubscriptionId String?            @unique
+  status               SubscriptionStatus
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  canceledAt           DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  tenant               Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  plan                 Plan               @relation(fields: [planId], references: [id])
+
+  @@index([tenantId, status])
+}
+
+model StripeCustomerRef {
+  id               String   @id @default(uuid())
+  tenantId         String   @unique
+  stripeCustomerId String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  tenant           Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+/// Idempotency ledger for Stripe webhooks. Stripe delivers events with
+/// at-least-once semantics; the same event.id can arrive 2+ times. Without
+/// dedup, handlers would write duplicate audit rows + run side-effects twice.
+/// Purge rows older than 30 days (Stripe stops retrying after ~3 days).
+model StripeWebhookEvent {
+  eventId    String   @id
+  type       String
+  receivedAt DateTime @default(now())
+
+  @@index([receivedAt])
+}
+
+// ============================================================================
+// Integrations (Google OAuth as worked example)
+// ============================================================================
+
+model IntegrationConnection {
+  id                  String                  @id @default(uuid())
+  tenantId            String?
+  provider            IntegrationProvider
+  status              IntegrationStatus       @default(NOT_CONNECTED)
+  label               String
+  externalAccountId   String?
+  externalEmail       String?
+  metadataJson        Json?
+  lastVerifiedAt      DateTime?
+  reconnectRequiredAt DateTime?
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  tenant              Tenant?                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  googleDetail        GoogleConnectionDetail?
+}
+
+model GoogleConnectionDetail {
+  id                      String                @id @default(uuid())
+  integrationConnectionId String                @unique
+  mailboxEmail            String
+  grantedScopesJson       Json
+  calendarIdsJson         Json?
+  tokenExpiresAt          DateTime?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  integrationConnection   IntegrationConnection @relation(fields: [integrationConnectionId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================================
+// Tokens & sessions
+// ============================================================================
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/// One-time password-reset tokens. Created when a user requests a reset via
+/// /forgot-password, consumed via /reset-password. Token sent in the email
+/// is the raw bytes; what's stored here is sha256(raw).
+model PasswordResetToken {
+  id        String    @id @default(uuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+/// Web Push subscription — one row per browser/device. Created when the user
+/// grants notification permission.
+model PushSubscription {
+  id         String   @id @default(uuid())
+  tenantId   String
+  userId     String
+  endpoint   String   @unique
+  p256dh     String
+  auth       String
+  userAgent  String?
+  lastUsedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, userId])
+}
+
+// ============================================================================
+// Affiliate program
+// ============================================================================
+
+model AffiliateSettings {
+  id                   String   @id @default("singleton")
+  cookieDurationDays   Int      @default(30)
+  commissionRatePct    Float    @default(20)
+  commissionType       String   @default("PERCENTAGE")
+  minPayoutCents       Int      @default(5000)
+  autoApproveAfterDays Int      @default(30)
+  programName          String   @default("Affiliate Program")
+  programDescription   String   @default("Earn commission by referring new customers.")
+  termsUrl             String?
+  updatedAt            DateTime @updatedAt
+}
+
+model AffiliateAccount {
+  id                     String                   @id @default(uuid())
+  userId                 String                   @unique
+  status                 AffiliateStatus          @default(PENDING)
+  referralCode           String                   @unique
+  stripeConnectAccountId String?                  @unique
+  payoutMethodJson       Json?
+  taxProfileJson         Json?
+  payoutRequestedAt      DateTime?
+  totalEarnedCents       Int                      @default(0)
+  totalPaidCents         Int                      @default(0)
+  approvedAt             DateTime?
+  notes                  String?
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  user                   User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clicks                 AffiliateClick[]
+  conversions            AffiliateConversion[]
+  commissions            AffiliateCommission[]
+  payoutRequests         AffiliatePayoutRequest[]
+  customLinks            AffiliateCustomLink[]
+}
+
+model AffiliateCustomLink {
+  id                 String           @id @default(uuid())
+  affiliateAccountId String
+  slug               String           @unique
+  label              String
+  notes              String?
+  archivedAt         DateTime?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  affiliateAccount   AffiliateAccount @relation(fields: [affiliateAccountId], references: [id], onDelete: Cascade)
+  clicks             AffiliateClick[]
+
+  @@index([affiliateAccountId, archivedAt])
+}
+
+model AffiliatePayoutRequest {
+  id                 String           @id @default(uuid())
+  affiliateAccountId String
+  amountCents        Int
+  currency           String           @default("usd")
+  status             String           @default("PENDING")
+  requestedAt        DateTime         @default(now())
+  processedAt        DateTime?
+  payoutRef          String?
+  notes              String?
+  affiliateAccount   AffiliateAccount @relation(fields: [affiliateAccountId], references: [id], onDelete: Cascade)
+
+  @@index([affiliateAccountId, status])
+}
+
+model AffiliateClick {
+  id                 String               @id @default(uuid())
+  affiliateAccountId String
+  customLinkId       String?
+  tenantId           String?
+  sessionId          String?
+  landingPath        String?
+  referrer           String?
+  ipHash             String?
+  userAgent          String?
+  createdAt          DateTime             @default(now())
+  affiliateAccount   AffiliateAccount     @relation(fields: [affiliateAccountId], references: [id], onDelete: Cascade)
+  customLink         AffiliateCustomLink? @relation(fields: [customLinkId], references: [id], onDelete: SetNull)
+
+  @@index([affiliateAccountId, createdAt])
+  @@index([customLinkId, createdAt])
+}
+
+model AffiliateConversion {
+  id                 String                @id @default(uuid())
+  affiliateAccountId String
+  tenantId           String
+  subscriptionId     String?
+  conversionType     String
+  conversionValue    Int?
+  occurredAt         DateTime
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  affiliateAccount   AffiliateAccount      @relation(fields: [affiliateAccountId], references: [id], onDelete: Cascade)
+  tenant             Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  commissions        AffiliateCommission[]
+}
+
+model AffiliateCommission {
+  id                    String              @id @default(uuid())
+  affiliateConversionId String
+  affiliateAccountId    String
+  tenantId              String
+  amountMinor           Int
+  currency              String
+  status                CommissionStatus    @default(PENDING)
+  approvedAt            DateTime?
+  paidAt                DateTime?
+  payoutRef             String?
+  /// Holdback policy: eligibleAt is when the 30-day hold ends (= conversion
+  /// date + 30 days for first subscriptions and one-time payments;
+  /// = conversion date itself for recurring renewals which skip the hold).
+  /// scheduledPayoutDate is the next 1st/15th >= eligibleAt, business-day
+  /// adjusted forward (Sat→Mon, Sun→Mon).
+  eligibleAt            DateTime            @default(now())
+  scheduledPayoutDate   DateTime?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  affiliateConversion   AffiliateConversion @relation(fields: [affiliateConversionId], references: [id], onDelete: Cascade)
+  affiliateAccount      AffiliateAccount    @relation(fields: [affiliateAccountId], references: [id], onDelete: Cascade)
+  tenant                Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([affiliateAccountId, status])
+  @@index([scheduledPayoutDate, status])
+}
+
+// ============================================================================
+// Audit, secrets, impersonation, system, notifications
+// ============================================================================
+
+model AuditLog {
+  id                     String                @id @default(uuid())
+  tenantId               String?
+  actorType              AuditActorType
+  actorUserId            String?
+  impersonationSessionId String?
+  action                 String
+  targetType             String
+  targetId               String?
+  metadataJson           Json?
+  ipHash                 String?
+  createdAt              DateTime              @default(now())
+  tenant                 Tenant?               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  actorUser              User?                 @relation("AuditActorUser", fields: [actorUserId], references: [id], onDelete: SetNull)
+  impersonationSession   ImpersonationSession? @relation(fields: [impersonationSessionId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@index([actorUserId, createdAt])
+  @@index([action, createdAt])
+}
+
+model SecretRef {
+  id              String          @id @default(uuid())
+  ownerType       SecretOwnerType
+  ownerId         String
+  secretType      String
+  label           String
+  provider        String
+  externalRef     String?
+  lastValidatedAt DateTime?
+  rotationStatus  RotationStatus  @default(UNKNOWN)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@unique([ownerType, ownerId, secretType, label])
+}
+
+model ImpersonationSession {
+  id             String     @id @default(uuid())
+  adminUserId    String
+  tenantId       String
+  assumedRoleKey String
+  reasonCode     String?
+  notes          String?
+  startedAt      DateTime   @default(now())
+  endedAt        DateTime?
+  adminUser      User       @relation("ImpersonationStartedBy", fields: [adminUserId], references: [id], onDelete: Cascade)
+  tenant         Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  auditLogs      AuditLog[]
+
+  @@index([tenantId, startedAt])
+  @@index([adminUserId, startedAt])
+}
+
+model SystemConfig {
+  key       String   @id
+  value     String
+  isSecret  Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  tenantId  String
+  type      String
+  priority  String    @default("info")
+  title     String
+  body      String
+  linkPath  String?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, readAt, createdAt])
+  @@index([tenantId, type])
+}

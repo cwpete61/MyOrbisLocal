@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "groups": {
+      "workspace": "Workspace",
+      "connect": "Connect",
+      "account": "Account"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "integrations": "Integrations",
+      "billing": "Billing",
+      "settings": "Settings",
+      "profile": "Profile",
+      "help": "Help"
+    },
+    "soonPill": "Soon"
+  },
+  "common": {
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "close": "Close",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "you@example.com"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subscription": "Subscription",
+    "members": "Members",
+    "noSubscription": "No active subscription"
+  },
+  "settings": {
+    "title": "Settings",
+    "displayName": "Display name",
+    "legalName": "Legal name",
+    "publicEmail": "Public email",
+    "publicPhone": "Public phone",
+    "website": "Website"
+  },
+  "integrations": {
+    "title": "Integrations",
+    "connectedAs": "Connected as",
+    "notConnected": "Not connected",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "confirmDisconnect": "Disconnect this integration?"
+  },
+  "help": {
+    "title": "Help",
+    "placeholder": "Help articles for tenants live here. Replace with your project's content."
+  },
+  "adminHelp": {
+    "title": "Admin Help",
+    "placeholder": "Help articles for platform admins live here."
+  },
+  "systemSettings": {
+    "title": "System Settings"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "rememberMe": "Remember me",
+    "createAccount": "Create account",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account yet?"
+  },
+  "partnerProfile": {
+    "saving": "Saving…",
+    "saved": "Saved",
+    "savePreferences": "Save preferences",
+    "saveFailed": "Save failed"
+  },
+  "partnerNav": {
+    "dashboard": "Dashboard",
+    "referrals": "Referrals",
+    "commissions": "Commissions",
+    "payouts": "Payouts",
+    "profile": "Profile"
+  }
+}

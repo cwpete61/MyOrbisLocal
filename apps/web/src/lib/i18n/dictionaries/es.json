@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "groups": {
+      "workspace": "Espacio de trabajo",
+      "connect": "Conectar",
+      "account": "Cuenta"
+    },
+    "items": {
+      "dashboard": "Panel",
+      "integrations": "Integraciones",
+      "billing": "Facturación",
+      "settings": "Configuración",
+      "profile": "Perfil",
+      "help": "Ayuda"
+    },
+    "soonPill": "Pronto"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "saving": "Guardando…",
+    "saved": "Guardado",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "namePlaceholder": "Ingresa tu nombre",
+    "emailPlaceholder": "tu@ejemplo.com"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "subscription": "Suscripción",
+    "members": "Miembros",
+    "noSubscription": "Sin suscripción activa"
+  },
+  "settings": {
+    "title": "Configuración",
+    "displayName": "Nombre visible",
+    "legalName": "Nombre legal",
+    "publicEmail": "Correo público",
+    "publicPhone": "Teléfono público",
+    "website": "Sitio web"
+  },
+  "integrations": {
+    "title": "Integraciones",
+    "connectedAs": "Conectado como",
+    "notConnected": "No conectado",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "confirmDisconnect": "¿Desconectar esta integración?"
+  },
+  "help": {
+    "title": "Ayuda",
+    "placeholder": "Aquí van los artículos de ayuda para tenants. Reemplaza con el contenido de tu proyecto."
+  },
+  "adminHelp": {
+    "title": "Ayuda de admin",
+    "placeholder": "Aquí van los artículos de ayuda para administradores."
+  },
+  "systemSettings": {
+    "title": "Configuración del sistema"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "email": "Correo",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recordarme",
+    "createAccount": "Crear cuenta",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "noAccount": "¿Aún no tienes cuenta?"
+  },
+  "partnerProfile": {
+    "saving": "Guardando…",
+    "saved": "Guardado",
+    "savePreferences": "Guardar preferencias",
+    "saveFailed": "Error al guardar"
+  },
+  "partnerNav": {
+    "dashboard": "Panel",
+    "referrals": "Referidos",
+    "commissions": "Comisiones",
+    "payouts": "Pagos",
+    "profile": "Perfil"
+  }
+}
