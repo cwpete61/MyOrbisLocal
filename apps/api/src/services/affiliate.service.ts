@@ -1,6 +1,6 @@
 import { prisma } from '../lib/prisma.js'
 import crypto from 'crypto'
-import { AppError } from '@template/shared'
+import { AppError } from '@myorbislocal/shared'
 import { getStripe } from '../lib/stripe.js'
 
 // ── Settings ──────────────────────────────────────────────────────────────────
@@ -207,7 +207,7 @@ export async function createConnectOnboardingLink(
       business_type: 'individual',
       metadata: {
         affiliateAccountId: account.id,
-        platform:           'APP_NAME',
+        platform:           'MyOrbisLocal',
       },
     })
     connectAccountId = created.id
@@ -263,7 +263,7 @@ export async function updateAffiliateNotes(id: string, notes: string) {
 export async function getReferralLink(userId: string): Promise<{ url: string; code: string } | null> {
   const account = await prisma.affiliateAccount.findUnique({ where: { userId } })
   if (!account) return null
-  const appUrl = process.env.APP_URL ?? 'https://app.example.com'
+  const appUrl = process.env.APP_URL ?? 'https://app.myorbislocal.com'
   return {
     url:  `${appUrl}/r/${account.referralCode}`,
     code: account.referralCode,

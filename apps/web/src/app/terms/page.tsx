@@ -1,4 +1,4 @@
-export const metadata = { title: 'Terms of Service — APP_NAME' }
+export const metadata = { title: 'Terms of Service — MyOrbisLocal' }
 
 export default function TermsPage() {
   return (
@@ -9,7 +9,7 @@ export default function TermsPage() {
       <p>Replace this page with your project&apos;s actual Terms of Service. Boilerplate placeholders below.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 12 }}>1. About</h2>
-      <p>APP_NAME is a software service. By using it, you agree to these terms.</p>
+      <p>MyOrbisLocal is a software service. By using it, you agree to these terms.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 12 }}>2. Accounts</h2>
       <p>You are responsible for keeping your account credentials secure.</p>

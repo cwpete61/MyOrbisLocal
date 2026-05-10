@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { getEnv } from '@template/config'
+import { getEnv } from '@myorbislocal/config'
 import { getConfigValue } from '../services/system-config.service.js'
 
 let _stripe: InstanceType<typeof Stripe> | undefined

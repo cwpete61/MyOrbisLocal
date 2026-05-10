@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
-import { Errors } from '@template/shared'
-import { ROLE_KEYS } from '@template/types'
+import { Errors } from '@myorbislocal/shared'
+import { ROLE_KEYS } from '@myorbislocal/types'
 import { prisma } from '../lib/prisma.js'
 
 /** Three platform roles, ranked from most → least privileged:

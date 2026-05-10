@@ -59,7 +59,7 @@ export default function AffiliateSignupPage() {
             </svg>
           </div>
           <div>
-            <p className="font-bold text-sm leading-none" style={{ color: 'var(--text-primary)' }}>APP_NAME</p>
+            <p className="font-bold text-sm leading-none" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</p>
             <p className="text-xs mt-0.5" style={{ color: 'oklch(65% 0.15 193)' }}>{t('partnerSignup.brandSubtitle')}</p>
           </div>
         </div>

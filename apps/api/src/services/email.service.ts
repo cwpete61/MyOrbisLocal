@@ -63,10 +63,10 @@ export async function sendWelcomeEmail(opts: {
 
   await sendEmail({
     to: opts.to,
-    subject: `Welcome to APP_NAME, ${opts.tenantName}`,
+    subject: `Welcome to MyOrbisLocal, ${opts.tenantName}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;line-height:1.5">
-        <h2 style="color:#1a9898;margin-bottom:4px">Welcome to APP_NAME 👋</h2>
+        <h2 style="color:#1a9898;margin-bottom:4px">Welcome to MyOrbisLocal 👋</h2>
         <p style="color:#666;margin-top:0;margin-bottom:24px">${opts.tenantName}</p>
 
         <p>${greeting}</p>
@@ -96,11 +96,11 @@ export async function sendWelcomeEmail(opts: {
           Questions? The Help Center
           (<a href="${opts.appBaseUrl}/help" style="color:#1a9898">${opts.appBaseUrl}/help</a>)
           covers every feature with step-by-step guides. You can also reach us directly:
-          <br/>General — <a href="mailto:admin@example.com" style="color:#1a9898">admin@example.com</a>
-          <br/>Technical support — <a href="mailto:support@example.com" style="color:#1a9898">support@example.com</a>
+          <br/>General — <a href="mailto:admin@myorbislocal.com" style="color:#1a9898">admin@myorbislocal.com</a>
+          <br/>Technical support — <a href="mailto:support@myorbislocal.com" style="color:#1a9898">support@myorbislocal.com</a>
         </p>
         <p style="color:#bbb;font-size:11px;margin-top:8px">
-          APP_NAME · 716 Washington St Suite 2, Allentown PA 18102
+          MyOrbisLocal · 716 Washington St Suite 2, Allentown PA 18102
         </p>
       </div>
     `,
@@ -135,11 +135,11 @@ function emailFooter(appBaseUrl: string, locale: OnboardingEmailLocale): string 
         ¿Preguntas? El Centro de Ayuda
         (<a href="${appBaseUrl}/help" style="color:#1a9898">${appBaseUrl}/help</a>)
         cubre cada función con guías paso a paso. También puedes contactarnos directamente:
-        <br/>General — <a href="mailto:admin@example.com" style="color:#1a9898">admin@example.com</a>
-        <br/>Soporte técnico — <a href="mailto:support@example.com" style="color:#1a9898">support@example.com</a>
+        <br/>General — <a href="mailto:admin@myorbislocal.com" style="color:#1a9898">admin@myorbislocal.com</a>
+        <br/>Soporte técnico — <a href="mailto:support@myorbislocal.com" style="color:#1a9898">support@myorbislocal.com</a>
       </p>
       <p style="color:#bbb;font-size:11px;margin-top:8px">
-        APP_NAME · 716 Washington St Suite 2, Allentown PA 18102
+        MyOrbisLocal · 716 Washington St Suite 2, Allentown PA 18102
       </p>`
   }
   return `
@@ -147,11 +147,11 @@ function emailFooter(appBaseUrl: string, locale: OnboardingEmailLocale): string 
       Questions? The Help Center
       (<a href="${appBaseUrl}/help" style="color:#1a9898">${appBaseUrl}/help</a>)
       covers every feature with step-by-step guides. You can also reach us directly:
-      <br/>General — <a href="mailto:admin@example.com" style="color:#1a9898">admin@example.com</a>
-      <br/>Technical support — <a href="mailto:support@example.com" style="color:#1a9898">support@example.com</a>
+      <br/>General — <a href="mailto:admin@myorbislocal.com" style="color:#1a9898">admin@myorbislocal.com</a>
+      <br/>Technical support — <a href="mailto:support@myorbislocal.com" style="color:#1a9898">support@myorbislocal.com</a>
     </p>
     <p style="color:#bbb;font-size:11px;margin-top:8px">
-      APP_NAME · 716 Washington St Suite 2, Allentown PA 18102
+      MyOrbisLocal · 716 Washington St Suite 2, Allentown PA 18102
     </p>`
 }
 
@@ -217,7 +217,7 @@ export async function sendOnboardingFeatureSpotlight(opts: OnboardingEmailOpts) 
           <h2 style="color:#1a9898;margin-bottom:4px">Tu agente hace más que contestar el teléfono</h2>
           <p style="color:#666;margin-top:0;margin-bottom:24px">${opts.tenantName}</p>
           <p>${greeting}</p>
-          <p>Llevas una semana con APP_NAME. Quería compartirte tres funciones que la mayoría de los nuevos clientes no descubren hasta el segundo mes:</p>
+          <p>Llevas una semana con MyOrbisLocal. Quería compartirte tres funciones que la mayoría de los nuevos clientes no descubren hasta el segundo mes:</p>
           <ol style="padding-left:20px;margin:20px 0">
             <li style="margin-bottom:12px"><strong>Tu agente puede enviar mensajes de texto.</strong> Confirmaciones de citas, recordatorios, seguimientos — todo automático. <a href="${channelsLink}" style="color:#1a9898">Activa SMS en Canales →</a></li>
             <li style="margin-bottom:12px"><strong>Reserva citas directamente en tu Google Calendar.</strong> El agente verifica disponibilidad en tiempo real y crea el evento — sin intervención humana. <a href="${apptsLink}" style="color:#1a9898">Conectar Google →</a></li>
@@ -238,7 +238,7 @@ export async function sendOnboardingFeatureSpotlight(opts: OnboardingEmailOpts) 
         <h2 style="color:#1a9898;margin-bottom:4px">Your agent does more than answer the phone</h2>
         <p style="color:#666;margin-top:0;margin-bottom:24px">${opts.tenantName}</p>
         <p>${greeting}</p>
-        <p>You've been on APP_NAME for a week. Wanted to share three features most new customers don't discover until month two:</p>
+        <p>You've been on MyOrbisLocal for a week. Wanted to share three features most new customers don't discover until month two:</p>
         <ol style="padding-left:20px;margin:20px 0">
           <li style="margin-bottom:12px"><strong>Your agent can send SMS.</strong> Appointment confirmations, reminders, follow-ups — all automated. <a href="${channelsLink}" style="color:#1a9898">Enable SMS in Channels →</a></li>
           <li style="margin-bottom:12px"><strong>Books appointments directly into your Google Calendar.</strong> The agent checks availability in real time and creates the event — no human in the loop. <a href="${apptsLink}" style="color:#1a9898">Connect Google →</a></li>
@@ -263,7 +263,7 @@ export async function sendOnboardingWeekTwoCheckIn(opts: OnboardingEmailOpts) {
           <h2 style="color:#1a9898;margin-bottom:4px">¿Cómo va todo?</h2>
           <p style="color:#666;margin-top:0;margin-bottom:24px">${opts.tenantName}</p>
           <p>${greeting}</p>
-          <p>Llevas dos semanas con APP_NAME. Esta es la nota personal — no automatizada de relleno.</p>
+          <p>Llevas dos semanas con MyOrbisLocal. Esta es la nota personal — no automatizada de relleno.</p>
           <p>Tres preguntas honestas:</p>
           <ul style="padding-left:20px;margin:14px 0">
             <li>¿Qué <strong>está funcionando</strong> bien para ti?</li>
@@ -286,7 +286,7 @@ export async function sendOnboardingWeekTwoCheckIn(opts: OnboardingEmailOpts) {
         <h2 style="color:#1a9898;margin-bottom:4px">How's it going?</h2>
         <p style="color:#666;margin-top:0;margin-bottom:24px">${opts.tenantName}</p>
         <p>${greeting}</p>
-        <p>You've had APP_NAME for two weeks. This is the human note — not auto-canned filler.</p>
+        <p>You've had MyOrbisLocal for two weeks. This is the human note — not auto-canned filler.</p>
         <p>Three honest questions:</p>
         <ul style="padding-left:20px;margin:14px 0">
           <li>What's <strong>working</strong> well for you?</li>
@@ -332,7 +332,7 @@ export async function sendCallNotification(opts: {
         <a href="${link}" style="display:inline-block;background:#1a9898;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:14px">
           View conversation →
         </a>
-        <p style="color:#aaa;font-size:12px;margin-top:24px">APP_NAME · you can manage notification preferences in your workspace settings.</p>
+        <p style="color:#aaa;font-size:12px;margin-top:24px">MyOrbisLocal · you can manage notification preferences in your workspace settings.</p>
       </div>
     `,
   })
@@ -345,25 +345,25 @@ export async function sendCallNotification(opts: {
 export async function sendPasswordResetEmail(opts: {
   to: string
   firstName?: string | null
-  resetUrl: string  // already-built URL like https://app.example.com/reset-password?token=…
+  resetUrl: string  // already-built URL like https://app.myorbislocal.com/reset-password?token=…
   expiresInMinutes: number
 }) {
   const greeting = opts.firstName ? `Hi ${opts.firstName},` : 'Hi there,'
 
   await sendEmail({
     to: opts.to,
-    subject: 'Reset your APP_NAME password',
+    subject: 'Reset your MyOrbisLocal password',
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#222;line-height:1.5">
         <h2 style="color:#1a9898;margin-bottom:8px">Reset your password</h2>
         <p>${greeting}</p>
-        <p>We got a request to reset the password for your APP_NAME account. Click the button below to choose a new password:</p>
+        <p>We got a request to reset the password for your MyOrbisLocal account. Click the button below to choose a new password:</p>
         <a href="${opts.resetUrl}" style="display:inline-block;background:#1a9898;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-size:14px;margin:16px 0">
           Reset password →
         </a>
         <p style="color:#666;font-size:13px">This link expires in <strong>${opts.expiresInMinutes} minutes</strong> and can only be used once. If you didn't request this, you can safely ignore this email — your password won't change.</p>
         <p style="color:#888;font-size:12px;margin-top:24px;border-top:1px solid #eee;padding-top:16px">If the button doesn't work, paste this URL into your browser:<br/><a href="${opts.resetUrl}" style="color:#1a9898;word-break:break-all">${opts.resetUrl}</a></p>
-        <p style="color:#bbb;font-size:11px;margin-top:8px">APP_NAME · TODO: update with your business address</p>
+        <p style="color:#bbb;font-size:11px;margin-top:8px">MyOrbisLocal · TODO: update with your business address</p>
       </div>
     `,
   })

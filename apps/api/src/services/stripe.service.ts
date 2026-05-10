@@ -1,7 +1,7 @@
 import { prisma } from '../lib/prisma.js'
 import { getStripe, getWebhookSecrets } from '../lib/stripe.js'
-import { getEnv } from '@template/config'
-import { AppError } from '@template/shared'
+import { getEnv } from '@myorbislocal/config'
+import { AppError } from '@myorbislocal/shared'
 import { syncEntitlementsFromPlan } from './entitlement.service.js'
 import { writeAuditLog } from '../lib/audit.js'
 

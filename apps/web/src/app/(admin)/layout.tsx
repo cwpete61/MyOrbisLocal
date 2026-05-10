@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </div>
               <div>
                 <span className="text-xs font-semibold tracking-tight block" style={{ color: 'var(--text-primary)' }}>
-                  APP_NAME
+                  MyOrbisLocal
                 </span>
                 <span className="text-xs" style={{ color: 'oklch(55% 0.09 193)' }}>Admin</span>
               </div>

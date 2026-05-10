@@ -154,8 +154,8 @@ pnpm --filter @template/api build
 
 **Step 4 — Verify the rollback worked:**
 ```bash
-curl -s https://api.example.com/health | grep -q '"status":"ok"' && echo OK
-curl -s -o /dev/null -w "%{http_code}\n" https://app.example.com/login        # expect 200
+curl -s https://api.myorbislocal.com/health | grep -q '"status":"ok"' && echo OK
+curl -s -o /dev/null -w "%{http_code}\n" https://app.myorbislocal.com/login        # expect 200
 ssh root@147.93.183.4 'docker logs app_name-api --tail=20'    # expect "listening on" with no errors
 ```
 
@@ -197,7 +197,7 @@ ssh root@147.93.183.4 'cd /opt/app_name/infrastructure/docker && \
 
 **Step 3 — Verify:**
 ```bash
-curl -s https://api.example.com/health
+curl -s https://api.myorbislocal.com/health
 ssh root@147.93.183.4 'docker ps --filter name=app_name --format "{{.Names}} {{.Status}}"'
 ```
 
@@ -233,7 +233,7 @@ ssh root@147.93.183.4 'docker exec app_name-postgres psql -U template -d templat
 **Step 5 — Resume traffic:**
 ```bash
 ssh root@147.93.183.4 'docker start app_name-api app_name-gateway'
-sleep 6 && curl -s https://api.example.com/health
+sleep 6 && curl -s https://api.myorbislocal.com/health
 ```
 
 ### Quick reference — canonical paths

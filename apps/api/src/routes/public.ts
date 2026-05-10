@@ -3,7 +3,7 @@ import * as systemConfig from '../services/system-config.service.js'
 
 const router: IRouter = Router()
 
-// GET /api/public/social-links — returns APP_NAME's own social media URLs
+// GET /api/public/social-links — returns MyOrbisLocal's own social media URLs
 // for the marketing site footer + partner portal "Follow us" section.
 // Public, no auth, cached client-side. Empty/null values omitted from response
 // so the consumer just iterates non-null entries.

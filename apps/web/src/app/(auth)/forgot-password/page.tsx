@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
               <circle cx="9" cy="9" r="7.5" stroke="oklch(10% 0.01 193)" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
-          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>APP_NAME</span>
+          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</span>
         </div>
 
         {submitted ? (

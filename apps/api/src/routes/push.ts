@@ -67,7 +67,7 @@ router.delete('/push/subscriptions/:id', asyncHandler(async (req, res) => {
 router.post('/push/test', asyncHandler(async (req, res) => {
   const userId = req.user!.id
   const result = await pushService.sendToUser(userId, {
-    title: 'APP_NAME notifications are on',
+    title: 'MyOrbisLocal notifications are on',
     body:  'You will be notified here when calls come in. Tap to open the dashboard.',
     url:   '/conversations',
     tag:   'test',

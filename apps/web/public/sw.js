@@ -1,7 +1,7 @@
-// APP_NAME service worker — handles incoming Web Push notifications.
+// MyOrbisLocal service worker — handles incoming Web Push notifications.
 
 self.addEventListener('push', (event) => {
-  let data = { title: 'APP_NAME', body: 'New activity', url: '/' }
+  let data = { title: 'MyOrbisLocal', body: 'New activity', url: '/' }
   try {
     if (event.data) data = { ...data, ...event.data.json() }
   } catch {

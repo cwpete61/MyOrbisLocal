@@ -24,7 +24,7 @@ function SidebarContents({ onNav }: { onNav?: () => void }) {
         <div className="flex items-center gap-2.5">
           <TenantLogo />
           <span className="text-sm font-semibold tracking-tight" style={{ color: 'var(--text-primary)' }}>
-            APP_NAME
+            MyOrbisLocal
           </span>
         </div>
         <ThemeToggle />
@@ -137,7 +137,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <circle cx="7" cy="7" r="6" stroke="oklch(10% 0.01 193)" strokeOpacity="0.4" strokeWidth="1.5" />
                 </svg>
               </div>
-              <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>APP_NAME</span>
+              <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</span>
             </div>
             <div className="flex items-center gap-1.5">
               <TierBadge />

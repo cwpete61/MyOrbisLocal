@@ -324,12 +324,12 @@ export default function PlatformTeamPage() {
       <div className="rounded-xl p-5" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
         <h2 className="text-sm font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Grant a platform role</h2>
         <p className="text-xs mb-3" style={{ color: 'var(--text-secondary)' }}>
-          The user must already have an account at <code>app.example.com</code>. Granting them a platform role lets them sign in and access the admin dashboard at this user's permission level.
+          The user must already have an account at <code>app.myorbislocal.com</code>. Granting them a platform role lets them sign in and access the admin dashboard at this user's permission level.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <input
             type="email"
-            placeholder="user@example.com"
+            placeholder="user@myorbislocal.com"
             value={grantEmail}
             onChange={(e) => setGrantEmail(e.target.value)}
             className="input sm:col-span-1"

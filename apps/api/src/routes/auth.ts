@@ -2,7 +2,7 @@ import { Router, type IRouter } from 'express'
 import { z } from 'zod'
 import { authenticate } from '../middleware/authenticate.js'
 import * as authService from '../services/auth.service.js'
-import { AppError } from '@template/shared'
+import { AppError } from '@myorbislocal/shared'
 import { writeAuditLogFromRequest } from '../lib/audit.js'
 import { passwordSchema } from '../lib/password-rules.js'
 
@@ -66,7 +66,7 @@ router.post('/signup', async (req, res, next) => {
 
     // Welcome email — fire-and-forget, never block signup on SMTP issues
     const { sendWelcomeEmail } = await import('../services/email.service.js')
-    const { getEnv } = await import('@template/config')
+    const { getEnv } = await import('@myorbislocal/config')
     sendWelcomeEmail({
       to: result.user.email,
       firstName: result.user.firstName,
@@ -192,7 +192,7 @@ router.post('/forgot-password', async (req, res, next) => {
       // SMTP failure doesn't fail the request (we still return success-
       // shaped to the caller).
       const { sendPasswordResetEmail } = await import('../services/email.service.js')
-      const { getEnv } = await import('@template/config')
+      const { getEnv } = await import('@myorbislocal/config')
       const appBase = getEnv().APP_BASE_URL
       const resetUrl = `${appBase}/reset-password?token=${encodeURIComponent(result.rawToken)}`
       sendPasswordResetEmail({

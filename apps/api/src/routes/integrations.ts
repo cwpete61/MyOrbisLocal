@@ -2,8 +2,8 @@ import { Router, type IRouter } from 'express'
 import { authenticate } from '../middleware/authenticate.js'
 import { requireTenantContext } from '../middleware/rbac.js'
 import * as googleService from '../services/google.service.js'
-import { AppError } from '@template/shared'
-import { getEnv } from '@template/config'
+import { AppError } from '@myorbislocal/shared'
+import { getEnv } from '@myorbislocal/config'
 
 const router: IRouter = Router()
 

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── APP_NAME Design Tokens ──────────────────────────────────────────────
+/* ─── MyOrbisLocal Design Tokens ──────────────────────────────────────────────
    Theme: Dark-first. Inspired by the Haze dashboard.
    Brand hue: 193 (teal — #1a9898 primary).
    Neutrals tinted toward hue 193 at chroma 0.008–0.012.

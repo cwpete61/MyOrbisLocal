@@ -21,7 +21,7 @@ const TTL_MS = 5 * 60 * 1000
 const API_BASE = (
   typeof window !== 'undefined' && window.location.hostname === 'localhost'
     ? 'http://localhost:4000'
-    : 'https://api.example.com'
+    : 'https://api.myorbislocal.com'
 )
 
 const ICONS: Record<keyof SocialMap, { label: string; path: string }> = {

@@ -11,7 +11,7 @@
  * State is the standard CSRF nonce; we cache it in Redis for 10 minutes.
  *
  * Required Google Cloud Console step:
- *   The OAuth client must have https://api.example.com/api/auth/google/callback
+ *   The OAuth client must have https://api.myorbislocal.com/api/auth/google/callback
  *   listed in Authorized redirect URIs (separate from the integrations URI).
  *   Without that, Google rejects the callback with redirect_uri_mismatch.
  */
@@ -20,8 +20,8 @@ import jwt from 'jsonwebtoken'
 import { google } from 'googleapis'
 import { prisma } from '../lib/prisma.js'
 import { getRedis } from '../lib/redis.js'
-import { AppError } from '@template/shared'
-import { getEnv } from '@template/config'
+import { AppError } from '@myorbislocal/shared'
+import { getEnv } from '@myorbislocal/config'
 import { getConfigValue } from './system-config.service.js'
 
 // 10-minute window for the user to complete the OAuth round-trip
@@ -31,7 +31,7 @@ const PENDING_PROFILE_TTL_SECONDS = 15 * 60
 
 // Sign-in scopes are deliberately MINIMAL — just enough to identify the user.
 // The integrations flow asks for Gmail+Calendar; that's a heavier consent
-// screen. Sign-in users should see "APP_NAME wants to know your name and
+// screen. Sign-in users should see "MyOrbisLocal wants to know your name and
 // email" and nothing else.
 const SIGN_IN_SCOPES = [
   'openid',

@@ -109,11 +109,11 @@ async function main() {
       slug: 'platform',
       displayName: 'Platform',
       status: 'ACTIVE',
-      registrationEmail: 'admin@example.com',
+      registrationEmail: 'admin@myorbislocal.com',
     },
   });
 
-  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@example.com';
+  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@myorbislocal.com';
   const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'changeme123';
   const passwordHash = await bcrypt.hash(adminPassword, 12);
   const adminUser = await prisma.user.upsert({

@@ -38,7 +38,7 @@ type Referral = {
   commissionCents: number
 }
 
-const APP_BASE = 'https://app.example.com'
+const APP_BASE = 'https://app.myorbislocal.com'
 
 export default function ReferralsPage() {
   const t = useT()

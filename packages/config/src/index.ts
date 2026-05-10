@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
-  APP_NAME: z.string().default('APP_NAME'),
+  APP_NAME: z.string().default('MyOrbisLocal'),
   APP_BASE_URL: z.string().url(),
   API_BASE_URL: z.string().url(),
   DATABASE_URL: z.string().min(1),

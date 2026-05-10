@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import type { TokenPayload } from '@template/types'
-import { getEnv } from '@template/config'
+import type { TokenPayload } from '@myorbislocal/types'
+import { getEnv } from '@myorbislocal/config'
 
 const ACCESS_TOKEN_TTL = '15m'
 

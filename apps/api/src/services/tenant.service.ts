@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { prisma } from '../lib/prisma.js'
-import { AppError } from '@template/shared'
+import { AppError } from '@myorbislocal/shared'
 
 export const updateTenantSchema = z.object({
   displayName: z.string().min(2).max(100).optional(),

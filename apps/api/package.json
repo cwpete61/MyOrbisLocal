@@ -1,5 +1,5 @@
 {
-  "name": "@template/api",
+  "name": "@myorbislocal/api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@prisma/client": "^5.15.0",
-    "@template/config": "workspace:*",
-    "@template/shared": "workspace:*",
-    "@template/types": "workspace:*",
+    "@myorbislocal/config": "workspace:*",
+    "@myorbislocal/shared": "workspace:*",
+    "@myorbislocal/types": "workspace:*",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

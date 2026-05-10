@@ -1,7 +1,7 @@
 import { google, type Auth } from 'googleapis'
 import { prisma } from '../lib/prisma.js'
 import { writeAuditLog } from '../lib/audit.js'
-import { AppError } from '@template/shared'
+import { AppError } from '@myorbislocal/shared'
 import { getGoogleConfig } from './system-config.service.js'
 import crypto from 'node:crypto'
 

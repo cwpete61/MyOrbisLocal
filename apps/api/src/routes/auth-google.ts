@@ -8,8 +8,8 @@
  */
 import { Router, type IRouter } from 'express'
 import { z } from 'zod'
-import { AppError } from '@template/shared'
-import { getEnv } from '@template/config'
+import { AppError } from '@myorbislocal/shared'
+import { getEnv } from '@myorbislocal/config'
 import { asyncHandler } from '../lib/async-handler.js'
 import { startGoogleSignIn, handleGoogleCallback, verifyPendingProfile } from '../services/google-signin.service.js'
 import { issueTokensForUserId, signupUserFromGoogle } from '../services/auth.service.js'

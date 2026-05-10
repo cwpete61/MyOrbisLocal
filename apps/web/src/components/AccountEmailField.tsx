@@ -91,7 +91,7 @@ export function AccountEmailField({ provider, currentValue, onSaved }: Props) {
             type="email"
             value={draft}
             onChange={(e) => { setDraft(e.target.value); setError(null) }}
-            placeholder="account-owner@example.com"
+            placeholder="account-owner@myorbislocal.com"
             className="w-full px-3 py-1.5 rounded-lg text-sm"
             style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
             autoComplete="off"

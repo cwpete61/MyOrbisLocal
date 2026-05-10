@@ -1,4 +1,4 @@
-export const metadata = { title: 'Privacy Policy — APP_NAME' }
+export const metadata = { title: 'Privacy Policy — MyOrbisLocal' }
 
 export default function PrivacyPage() {
   return (
@@ -8,7 +8,7 @@ export default function PrivacyPage() {
 
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>1. Overview</h2>
-        <p>APP_NAME ("we", "our", or "us") operates the APP_NAME platform, including the website at example.com and the application at app.example.com. This Privacy Policy explains how we collect, use, and protect your information when you use our services.</p>
+        <p>MyOrbisLocal ("we", "our", or "us") operates the MyOrbisLocal platform, including the website at myorbislocal.com and the application at app.myorbislocal.com. This Privacy Policy explains how we collect, use, and protect your information when you use our services.</p>
       </section>
 
       <section style={{ marginBottom: 32 }}>
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
 
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>3. How We Use Google User Data</h2>
-        <p>When you connect a Google account to APP_NAME, we request access to the following scopes:</p>
+        <p>When you connect a Google account to MyOrbisLocal, we request access to the following scopes:</p>
         <ul style={{ paddingLeft: 24, marginTop: 12 }}>
           <li><strong>gmail.send</strong> — to send booking confirmations, follow-up emails, and notifications on your behalf from your connected agent mailbox.</li>
           <li><strong>gmail.readonly</strong> — to read incoming emails relevant to appointments and customer inquiries handled by your voice agents.</li>
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>10. Contact</h2>
         <p>For privacy questions or data requests, contact us at:</p>
-        <p style={{ marginTop: 8 }}><strong>APP_NAME</strong><br />Email: privacy@example.com<br />Website: https://example.com</p>
+        <p style={{ marginTop: 8 }}><strong>MyOrbisLocal</strong><br />Email: privacy@myorbislocal.com<br />Website: https://myorbislocal.com</p>
       </section>
     </main>
   )

@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 import { verifyAccessToken } from '../lib/jwt.js'
-import type { AuthUser } from '@template/types'
-import { Errors } from '@template/shared'
+import type { AuthUser } from '@myorbislocal/types'
+import { Errors } from '@myorbislocal/shared'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

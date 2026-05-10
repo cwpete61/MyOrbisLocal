@@ -33,7 +33,7 @@ languages in the same change.
 - Dashboard strings: `apps/web/src/lib/i18n/dictionaries/en.json` + `es.json`. Use the
   `t('key')` helper. Adding a string means adding both locales.
 
-Universal references that stay English in both: brand placeholder `APP_NAME`, third-party
+Universal references that stay English in both: brand name `MyOrbisLocal`, third-party
 provider names (Stripe, Google), URLs/paths, all-caps system codes, template tokens
 (`{firstName}` etc).
 
@@ -142,8 +142,11 @@ All secrets are write-only in the UI:
   `apps/api/src/services/auth.service.ts`.
 - **Impersonation**: short-lived JWT with `impersonatedBy` + `impersonationSessionId`.
   Every action during impersonation carries the session ID into audit logs.
-- **Brand placeholder**: `APP_NAME` and `example.com` / `app.example.com` appear
-  throughout. Find-and-replace in one pass when you start a real project.
+- **Brand strings**: `MyOrbisLocal` (brand name), `myorbislocal.com` (marketing site),
+  and `app.myorbislocal.com` (dashboard) appear throughout. The original
+  `APP_NAME` / `example.com` placeholders from the saas-template baseline have
+  already been rebranded — when adding new strings, use the MyOrbisLocal forms
+  directly.
 
 ## Testing expectations
 

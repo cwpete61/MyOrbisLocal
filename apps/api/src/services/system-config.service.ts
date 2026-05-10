@@ -98,7 +98,7 @@ export async function getAccountEmails(): Promise<Record<AccountEmailProvider, s
 
 const DEFAULT_REDIRECT_URI = process.env['GOOGLE_OAUTH_REDIRECT_URI']
   || process.env['API_BASE_URL']?.replace(/\/$/, '') + '/api/integrations/google/callback'
-  || 'https://api.example.com/api/integrations/google/callback'
+  || 'https://api.myorbislocal.com/api/integrations/google/callback'
 
 export async function getSystemSettings(): Promise<{
   google: { clientId: string | null; clientSecret: boolean; redirectUri: string | null }

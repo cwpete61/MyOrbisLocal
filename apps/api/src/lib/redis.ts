@@ -1,5 +1,5 @@
 import Redis from 'ioredis'
-import { getEnv } from '@template/config'
+import { getEnv } from '@myorbislocal/config'
 
 let _redis: Redis | undefined
 

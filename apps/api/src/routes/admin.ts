@@ -3,8 +3,8 @@ import { z } from 'zod'
 import { authenticate } from '../middleware/authenticate.js'
 import { requirePlatformAdmin, requirePlatformSuperAdmin, requirePlatformSupport } from '../middleware/rbac.js'
 import * as adminService from '../services/admin.service.js'
-import { AppError } from '@template/shared'
-import { getEnv } from '@template/config'
+import { AppError } from '@myorbislocal/shared'
+import { getEnv } from '@myorbislocal/config'
 import { prisma } from '../lib/prisma.js'
 import * as systemConfig from '../services/system-config.service.js'
 import { writeAuditLogFromRequest } from '../lib/audit.js'
@@ -736,7 +736,7 @@ router.post('/platform-staff/:userId/password-reset', requirePlatformSuperAdmin,
     if (!result) throw new AppError('NOT_FOUND', 'Could not start password reset for this user', 404)
 
     const { sendPasswordResetEmail } = await import('../services/email.service.js')
-    const { getEnv } = await import('@template/config')
+    const { getEnv } = await import('@myorbislocal/config')
     const appBase = getEnv().APP_BASE_URL
     const resetUrl = `${appBase}/reset-password?token=${encodeURIComponent(result.rawToken)}`
     sendPasswordResetEmail({

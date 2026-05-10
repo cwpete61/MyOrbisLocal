@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 import { ZodError } from 'zod'
-import { AppError } from '@template/shared'
-import type { ApiErrorResponse } from '@template/types'
+import { AppError } from '@myorbislocal/shared'
+import type { ApiErrorResponse } from '@myorbislocal/types'
 import { writeAuditLog } from '../lib/audit.js'
 
 export function errorHandler(

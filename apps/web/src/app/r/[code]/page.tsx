@@ -4,10 +4,10 @@ import { useEffect } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? ''
-// Marketing site lives at the apex domain; the app lives at app.example.com.
+// Marketing site lives at the apex domain; the app lives at app.myorbislocal.com.
 // Visitors clicking a partner link should land on the marketing home so they
 // learn about the product first, then convert via the marketing CTA.
-const MARKETING_HOME = 'https://example.com/'
+const MARKETING_HOME = 'https://myorbislocal.com/'
 
 export default function ReferralRedirectPage() {
   const params = useParams()
@@ -40,12 +40,12 @@ export default function ReferralRedirectPage() {
       // Set referral cookie using the parent referralCode so signup
       // attribution finds the right affiliate even when the visitor came in
       // through a custom slug. Scope the cookie to the apex domain so it's
-      // shared between example.com (marketing) and app.example.com
+      // shared between myorbislocal.com (marketing) and app.myorbislocal.com
       // (signup) — the visitor lands on marketing, browses, then jumps to
       // signup, and the cookie has to survive that subdomain hop.
       const expires = new Date(Date.now() + cookieDays * 86400_000).toUTCString()
-      const domainAttr = window.location.hostname.endsWith('example.com')
-        ? '; Domain=.example.com'
+      const domainAttr = window.location.hostname.endsWith('myorbislocal.com')
+        ? '; Domain=.myorbislocal.com'
         : ''
       document.cookie = `ref=${encodeURIComponent(resolvedCode)}; expires=${expires}; path=/${domainAttr}; SameSite=Lax`
 

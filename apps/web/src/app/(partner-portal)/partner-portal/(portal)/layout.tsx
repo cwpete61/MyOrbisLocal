@@ -61,7 +61,7 @@ export default function AffiliatePortalLayout({ children }: { children: React.Re
       <aside className="w-56 flex-shrink-0 flex flex-col" style={{ background: 'var(--surface-raised)', borderRight: '1px solid var(--border-subtle)' }}>
         {/* Brand */}
         <div className="px-5 py-5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-          <p className="text-sm font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>APP_NAME</p>
+          <p className="text-sm font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</p>
           <p className="text-xs mt-0.5" style={{ color: 'oklch(65% 0.15 193)' }}>Partner Portal</p>
         </div>
 

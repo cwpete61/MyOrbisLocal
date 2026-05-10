@@ -98,7 +98,7 @@ export default function LoginPage() {
               <circle cx="9" cy="9" r="7.5" stroke="oklch(10% 0.01 193)" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
-          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>APP_NAME</span>
+          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</span>
         </div>
 
         <h1 className="text-2xl font-bold tracking-tight mb-1.5" style={{ color: 'var(--text-primary)' }}>
@@ -159,7 +159,7 @@ export default function LoginPage() {
           type="button"
           onClick={async () => {
             try {
-              const apiBase = process.env['NEXT_PUBLIC_API_URL'] ?? 'https://api.example.com'
+              const apiBase = process.env['NEXT_PUBLIC_API_URL'] ?? 'https://api.myorbislocal.com'
               const res = await fetch(`${apiBase}/api/auth/google/start`)
               const json = await res.json() as { data?: { url?: string } }
               if (json.data?.url) window.location.href = json.data.url

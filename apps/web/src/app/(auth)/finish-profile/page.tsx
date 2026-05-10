@@ -50,7 +50,7 @@ function FinishProfileInner() {
     if (!pendingToken) { setError(t('auth.finishProfile.missingTokenError')); return }
     setLoading(true)
     try {
-      const apiBase = process.env['NEXT_PUBLIC_API_URL'] ?? 'https://api.example.com'
+      const apiBase = process.env['NEXT_PUBLIC_API_URL'] ?? 'https://api.myorbislocal.com'
       const res = await fetch(`${apiBase}/api/auth/google/finish-profile`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -110,7 +110,7 @@ function FinishProfileInner() {
               <circle cx="9" cy="9" r="7.5" stroke="oklch(10% 0.01 193)" strokeOpacity="0.45" strokeWidth="2" />
             </svg>
           </div>
-          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>APP_NAME</span>
+          <span className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>MyOrbisLocal</span>
         </div>
 
         <h1 className="text-2xl font-bold tracking-tight mb-1.5" style={{ color: 'var(--text-primary)' }}>
@@ -163,9 +163,9 @@ function FinishProfileInner() {
 
             <p className="text-center mt-4 text-xs" style={{ color: 'var(--text-tertiary)' }}>
               {t('auth.signup.termsPrefix')}{' '}
-              <a href="https://example.com/terms.html" target="_blank" rel="noopener" style={{ color: 'oklch(55% 0.11 193)' }}>{t('auth.signup.termsLink')}</a>
+              <a href="https://myorbislocal.com/terms.html" target="_blank" rel="noopener" style={{ color: 'oklch(55% 0.11 193)' }}>{t('auth.signup.termsLink')}</a>
               {' '}{t('auth.signup.termsAnd')}{' '}
-              <a href="https://example.com/privacy.html" target="_blank" rel="noopener" style={{ color: 'oklch(55% 0.11 193)' }}>{t('auth.signup.privacyLink')}</a>.
+              <a href="https://myorbislocal.com/privacy.html" target="_blank" rel="noopener" style={{ color: 'oklch(55% 0.11 193)' }}>{t('auth.signup.privacyLink')}</a>.
             </p>
           </>
         )}

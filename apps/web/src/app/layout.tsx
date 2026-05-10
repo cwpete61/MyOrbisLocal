@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { I18nProvider, type Locale } from '@/lib/i18n/I18nProvider'
 
 export const metadata: Metadata = {
-  title: 'APP_NAME',
+  title: 'MyOrbisLocal',
   description: 'AI voice automation for your business',
 }
 
