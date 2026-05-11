@@ -12,10 +12,10 @@ interface Plan {
 }
 
 export default function AdminPlansPage() {
-  const { data, error, isLoading } = useApi<Plan[]>('/api/admin/plans')
+  const { data, error, loading } = useApi<Plan[]>('/api/admin/plans')
 
-  if (isLoading) return <div>Loading…</div>
-  if (error) return <div className="alert-error">{(error as Error).message}</div>
+  if (loading) return <div>Loading…</div>
+  if (error) return <div className="alert-error">{error}</div>
   if (!data) return null
 
   return (

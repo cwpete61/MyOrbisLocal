@@ -80,7 +80,7 @@ export default function AffiliatePortalLayout({ children }: { children: React.Re
               >
                 <span style={{ opacity: active ? 1 : 0.7 }}><Icon d={item.icon} /></span>
                 <span className="flex-1">{t(item.labelKey)}</span>
-                {('comingSoon' in item && item.comingSoon) && (
+                {Boolean('comingSoon' in item && item.comingSoon) && (
                   <span
                     className="text-[9px] px-1 py-0.5 rounded font-semibold uppercase tracking-wider flex-shrink-0"
                     style={{ background: 'oklch(55% 0.11 193 / 0.15)', color: 'oklch(65% 0.15 193)', letterSpacing: '0.08em' }}

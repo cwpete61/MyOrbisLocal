@@ -40,24 +40,24 @@ export default function TenantDetailPage() {
   const params = useParams<{ tenantId: string }>()
   const tenantId = params.tenantId
   const router = useRouter()
-  const { data: tenant, error, isLoading } = useApi<Tenant>(`/api/admin/tenants/${tenantId}`)
+  const { data: tenant, error, loading } = useApi<Tenant>(`/api/admin/tenants/${tenantId}`)
   const [impersonating, setImpersonating] = useState(false)
 
   async function enterAsTenant() {
     setImpersonating(true)
     try {
       const r = await apiFetch<{ token: string; sessionId: string }>(`/api/admin/tenants/${tenantId}/impersonate`, { method: 'POST' })
-      setTokens(r.data.token, '')
+      setTokens(r.token, '')
       router.push('/dashboard')
     } catch (e) {
-      alert((e as Error).message)
+      alert(e instanceof Error ? e.message : 'Failed to impersonate')
     } finally {
       setImpersonating(false)
     }
   }
 
-  if (isLoading) return <div className="p-6">Loading…</div>
-  if (error) return <div className="alert-error p-6">{(error as Error).message}</div>
+  if (loading) return <div className="p-6">Loading…</div>
+  if (error) return <div className="alert-error p-6">{error}</div>
   if (!tenant) return null
 
   const sub = tenant.subscriptions[0]

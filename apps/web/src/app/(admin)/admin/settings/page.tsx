@@ -8,10 +8,10 @@ interface PlatformStatus {
 }
 
 export default function AdminPlatformSettingsPage() {
-  const { data, error, isLoading } = useApi<PlatformStatus>('/api/admin/platform/status')
+  const { data, error, loading } = useApi<PlatformStatus>('/api/admin/platform/status')
 
-  if (isLoading) return <div>Loading…</div>
-  if (error) return <div className="alert-error">{(error as Error).message}</div>
+  if (loading) return <div>Loading…</div>
+  if (error) return <div className="alert-error">{error}</div>
   if (!data) return null
 
   const checks = [

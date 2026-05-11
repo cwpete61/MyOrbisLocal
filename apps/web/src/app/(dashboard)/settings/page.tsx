@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { apiFetch } from '@/lib/api'
+import { apiFetch } from '@/hooks/useApi'
 import { useT } from '@/lib/i18n/I18nProvider'
 
 interface TenantData {
@@ -22,8 +22,8 @@ export default function SettingsPage() {
 
   useEffect(() => {
     apiFetch<TenantData>('/api/tenant')
-      .then((r) => setData(r.data))
-      .catch((e: Error) => setError(e.message))
+      .then(setData)
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Failed to load'))
   }, [])
 
   async function save(e: React.FormEvent) {

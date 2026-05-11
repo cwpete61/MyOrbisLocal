@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { apiFetch } from '@/lib/api'
+import { apiFetch } from '@/hooks/useApi'
 import { useT } from '@/lib/i18n/I18nProvider'
 
 interface DashboardStats {
@@ -16,8 +16,8 @@ export default function DashboardPage() {
 
   useEffect(() => {
     apiFetch<DashboardStats>('/api/dashboard/stats')
-      .then((r) => setStats(r.data))
-      .catch((e: Error) => setError(e.message))
+      .then(setStats)
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Failed to load'))
   }, [])
 
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { apiFetch } from '@/lib/api'
+import { apiFetch } from '@/hooks/useApi'
 import { useT } from '@/lib/i18n/I18nProvider'
 
 interface IntegrationsState {
@@ -22,9 +22,9 @@ export default function IntegrationsPage() {
   async function load() {
     try {
       const r = await apiFetch<IntegrationsState>('/api/integrations')
-      setData(r.data)
+      setData(r)
     } catch (e) {
-      setError((e as Error).message)
+      setError(e instanceof Error ? e.message : 'Failed to load')
     }
   }
 
@@ -35,9 +35,9 @@ export default function IntegrationsPage() {
     setError(null)
     try {
       const r = await apiFetch<{ url: string }>('/api/integrations/google/start', { method: 'POST' })
-      window.location.href = r.data.url
+      window.location.href = r.url
     } catch (e) {
-      setError((e as Error).message)
+      setError(e instanceof Error ? e.message : 'Failed to start')
       setBusy(false)
     }
   }

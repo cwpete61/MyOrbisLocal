@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { prisma } from '../lib/prisma.js'
 import { signAccessToken } from '../lib/jwt.js'
 import { hashToken, generateSecureToken, AppError, toSlug } from '@myorbislocal/shared'
-import type { RoleKey } from '@myorbislocal/types'
+import { ROLE_KEYS, type RoleKey } from '@myorbislocal/types'
 import { getOrCreateStripeCustomer } from './stripe.service.js'
 import { syncEntitlementsFromPlan } from './entitlement.service.js'
 import { attributeTenant, applyForAffiliate } from './affiliate.service.js'
@@ -201,7 +201,7 @@ export async function affiliateSignupUser(data: {
   // Create the affiliate account in PENDING state
   await applyForAffiliate(user.id)
 
-  const tokens = await issueTokens(user.id, user.email, null, 'affiliate', false)
+  const tokens = await issueTokens(user.id, user.email, null, ROLE_KEYS.AFFILIATE, false)
   return { user: sanitizeUser(user), ...tokens }
 }
 
@@ -247,7 +247,7 @@ export async function loginUser(data: { login: string; password: string }) {
   if (!membership) {
     const affiliateAccount = await prisma.affiliateAccount.findUnique({ where: { userId: user.id } })
     if (affiliateAccount) {
-      roleKey = 'affiliate'
+      roleKey = ROLE_KEYS.AFFILIATE
       tenantId = null
       isPlatformRole = false
     }
