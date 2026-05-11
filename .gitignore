@@ -49,11 +49,13 @@ backups/
 # Marketing screenshots
 images/
 
-# Unrelated sibling project clones — kept on disk but not in this repo
-goose/
-playwright/
-impeccable/
-skills/
+# Unrelated sibling project clones — kept on disk but not in this repo.
+# Patterns anchored to repo root so `.claude/skills/` (Claude Code's
+# project-level skill defs) is not accidentally excluded.
+/goose/
+/playwright/
+/impeccable/
+/skills/
 
 # Uploads
 uploads/
