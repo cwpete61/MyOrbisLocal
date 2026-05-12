@@ -1,5 +1,40 @@
 # CLAUDE.md
 
+## ⚠️ Brand Context — READ FIRST
+
+**Brand hierarchy (do NOT confuse these):**
+
+- **MyOrbisResults** — parent company / umbrella brand
+- **MyOrbisVoice** — a product of MyOrbisResults
+- **MyOrbisLocal** — a *different* product of MyOrbisResults
+
+**MyOrbisVoice and MyOrbisLocal are SEPARATE products.** They have
+separate positioning, separate copy, separate audiences. One is NOT
+"a feature of" or "a service under" the other. They are siblings.
+
+**This repo (named `MyOrbisLocal`, GitHub `cwpete61/MyOrbisLocal`)
+holds the MyOrbisLocal product codebase.** Currently parked.
+
+**MyOrbisVoice development lives in `/home/orbis/Antigravity/OrbisVoice2026/`**
+(GitHub `cwpete61/MyOrbisVoice-Main`). If a task is about MyOrbisVoice
+copy / branding / landing pages / partner portal / voice agents, **you
+are in the wrong directory** — stop, tell the user, and recommend they
+open OrbisVoice2026 in a new Antigravity window. Do not import
+MyOrbisVoice positioning or copy into surfaces here, and do not push
+MyOrbisLocal positioning or copy out to OrbisVoice2026.
+
+**Cautionary tale (2026-05-11):** A session here misread "we are
+working on MyOrbisVoice and MyOrbisLocal" as "MyOrbisLocal is the
+umbrella brand and OrbisVoice is a product under it." It ran a
+global APP_NAME → MyOrbisLocal rebrand on user-facing copy and moved
+a marketing style guide between projects before being caught. The
+rebrand here is actually correct *for the MyOrbisLocal product*, but
+the cross-project file moves had to be reversed. Don't repeat the
+underlying mistake: when in doubt about which product a task touches,
+ask before acting.
+
+---
+
 ## What this is
 
 A **multi-tenant SaaS template** with auth, RBAC, Stripe billing, plans + entitlements,
